@@ -1,0 +1,87 @@
+USE_CAMERA_STUB := true
+
+# inherit from the proprietary version
+-include vendor/samsung/i8262/BoardConfigVendor.mk
+
+TARGET_ARCH := arm
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+TARGET_BOARD_PLATFORM := msm7x27a
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH_VARIANT := armv7-a-neon
+ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_CPU_VARIANT := cortex-a5
+
+TARGET_BOOTLOADER_BOARD_NAME := i8262
+
+TARGET_USERIMAGES_USE_EXT4 := true
+
+BOARD_BOOTIMAGE_PARTITION_SIZE := 12582912
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 12582912
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1004535296
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1291845120
+BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_RECOVERY_HANDLES_MOUNT := true
+BOARD_USES_MMCUTILS := true
+BOARD_HAS_SDCARD_INTERNAL := true
+
+# Kernel
+TARGET_KERNEL_CONFIG := cm_i8262_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/i8262
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom loglevel=1 vmalloc=200M
+BOARD_KERNEL_BASE := 0x00200000
+BOARD_KERNEL_PAGESIZE := 4096
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/i8262/bluetooth
+BOARD_BLUEDROID_VENDOR_CONF := device/samsung/i8262/bluetooth/vnd_qcom.txt
+
+# Wi-Fi Tethering
+BOARD_HAVE_SAMSUNG_WIFI := true
+
+# PowerHAL
+TARGET_USES_CM_POWERHAL := true
+
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm7x27a
+
+# QCOM hardware
+TARGET_QCOM_AUDIO_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := caf
+BOARD_USES_LEGACY_ALSA_AUDIO := true
+
+# Hardware rendering
+USE_OPENGL_RENDERER := true
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_ION := true
+BOARD_EGL_CFG := device/samsung/i8262/config/egl.cfg
+BOARD_USE_MHEAP_SCREENSHOT := true
+
+# chargers
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_BATTERY_DEVICE_NAME := "battery"
+
+# Recovery
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_FSTAB := device/samsung/i8262/ramdisk/fstab.qcom
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+
+# Samsung has weird framebuffer
+TARGET_NO_INITLOGO := true
+
+# CMHW
+BOARD_HARDWARE_CLASS := device/samsung/i8262/cmhw/
+
+# FM Radio
+BOARD_HAVE_QCOM_FM := true
+COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/i8262/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
